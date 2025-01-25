@@ -13,10 +13,10 @@ TIMESTAMP=$(date +%F-%H-%M-%S)
 VALIDATE(){
     if [ $1 -ne 0 ]
     then
-        echo "$2...FAILURE"
+        echo -e "$2...$R FAILURE $N"
         exit 1
     else
-        echo "$2...success"
+        echo -e "$2...$G success $N"
     fi
 }
 
@@ -36,6 +36,7 @@ do
     then
         echo -e "$i already installed...$Y SKIPPING $N"
     else
-        echo -e "$i not installed...$B need to install $N"
+        dnf install $i -y &>>$LOGFILE
+        VALIDATE $? "Installation of $i"
     fi 
 done 
